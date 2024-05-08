@@ -4,13 +4,13 @@ import yt_dlp
 from tkinter import *
 from tkinter import filedialog
 
-"""
+'''
 ERROR 403, update packages like so:
-cd C:\Program Files\youtube-dl
+cd \youtube-dl
 pip install youtube-dl --upgrade
 pip install yt-dlp --upgrade
 youtube_dl --rm-cache-dir
-"""
+'''
 
 options = {}
 postOptions = {}
