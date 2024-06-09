@@ -14,7 +14,7 @@ youtube_dl --rm-cache-dir
 
 options = {}
 postOptions = {}
-
+defaultDir = '~/Downloads'
 
 class Application(Tk):
     def __init__(self, parent=None):
@@ -22,33 +22,38 @@ class Application(Tk):
         self.title('Youtube Converter')
         self.call('tk', 'scaling', 2.0)
         self.linkCount = 0
-        self.formatLst = ['m4a','webm','mp4','raw']
-        self.format = StringVar(self, 'm4a')
-        self.path = '~/Downloads'
+        self.fileFormatLst = ['m4a','webm','mp4','default']
+        self.fileFormat = StringVar(self, 'm4a')
+        self.path = defaultDir
         self.dirName = StringVar(self, os.path.basename(self.path))
         self.createControls()
         
     def createControls(self):
-        #Labels
-        Label(self,text='Select format').grid(row=0,column=0)
+        #Row 0
+        Label(self,text='Select File Format').grid(row=0,column=0)
         Label(self,text='Export directory').grid(row=0,column=2)
-        #Row 1 
-        OptionMenu(self,self.format,*self.formatLst).grid(row=1,column=0)
+        #Row 1
+        OptionMenu(self,self.fileFormat,*self.fileFormatLst).grid(row=1,column=0)
         Button(self,text='Convert',command=self.convert).grid(row=1,column=1)
         self.dirButton = Button(self,textvariable=self.dirName,command=self.changeDir)
         self.dirButton.grid(row=1,column=2)
-        #Links text input
+        #Row 2
         self.linkText = Text(self, width=50, height=5)
         self.linkText.grid(row=2,columnspan=3)
         
     def changeDir(self):
         self.path = filedialog.askdirectory(parent=self,initialdir=self.path,title='Please select a folder')
-        self.dirName.set(os.path.basename(self.path))
+        if(self.path == ""):
+            self.dirName.set(os.path.basename(defaultDir))
+        else:
+            self.dirName.set(os.path.basename(self.path))
+        print(self.path)
+        
 
     def convert(self):
         links = ''.join(self.linkText.get('1.0','end')).split()
         options.clear()
-        format = self.format.get()
+        format = self.fileFormat.get()
         if(format=='raw'):
             pass
         else:
