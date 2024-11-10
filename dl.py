@@ -40,27 +40,28 @@ class Application(Tk):
             self.dirName.set(os.path.basename(self.path))
         print(self.path)
 
-    def convert(self):
-        links = ''.join(self.linkText.get('1.0', 'end')).split()
-        options.clear()
-        failed_links = []  # List to store failed links
-
-        # Set options for audio extraction
-        options['format'] = 'bestaudio/best'
-        options['outtmpl'] = os.path.join(self.path, '%(title)s.%(ext)s')
-        options['postprocessors'] = [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'm4a',
-            'preferredquality': '192',
-        }]
-
+    def download_audio(self, links, path):
+        options = {
+            'format': 'bestaudio/best',
+            'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'm4a',
+                'preferredquality': '192',
+            }]
+        }
+        failed_links = []
         with yt_dlp.YoutubeDL(options) as ydl:
             for link in links:
                 try:
-                    ydl.download([link])  # Attempt to download and extract audio
+                    ydl.download([link])
                 except Exception as e:
-                    print(f"Error processing {link}: {e}")  # Print error message
-                    failed_links.append(link)  # Add failed link to the list
+                    failed_links.append(link)
+        return failed_links
+
+    def convert(self):
+        links = ''.join(self.linkText.get('1.0', 'end')).split()
+        failed_links = self.download_audio(links, self.path)
 
         if failed_links:
             print("Links that failed to convert:")
@@ -68,11 +69,5 @@ class Application(Tk):
                 print(failed_link)
         else:
             print("Audio extraction complete.")
-
-
-
-
-
-
 
 Application().mainloop()
