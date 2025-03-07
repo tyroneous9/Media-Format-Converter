@@ -1,6 +1,6 @@
 # Media Format Converter UI
 
-This project provides a user-friendly interface for downloading and converting YouTube videos into formats like MP4 and WEBM.
+This project provides a user-friendly interface for downloading and converting online videos into formats like MP4 and WEBM.
 
 ## Prerequisites
 
