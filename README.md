@@ -1,19 +1,18 @@
-# Media Format Converter UI
+# YouTube Video & Audio Converter
+A Python-based YouTube Downloader that allows users to convert online videos into audio and video formats with an intuitive Tkinter UI.
 
-This project provides a user-friendly interface for downloading and converting online videos into formats like MP4 and WEBM.
+## Features
+### User Interface
+- Simple Tkinter-based UI for selecting formats and output directories.
+- Users can enter multiple YouTube links at once.
 
-## Prerequisites
+### Format Conversion
+- Supports audio (m4a) and video (mp4) downloads.
+- Uses yt-dlp for efficient downloading.
 
-- **Python 3.7+**
-- **FFmpeg**: [Installation Guide](https://ffmpeg.org/download.html)
-- **yt-dlp**: Install with `pip install yt-dlp`
+### Automated Error Handling
+- Detects and handles invalid URLs.
+- Warns users of network failures or unsupported formats.
 
-## Setup Instructions
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/tyroneous9/youtube-dl.git
-   cd youtube-dl
-
-2. **Run the application**:
-   python dl.py
+### Export Directory Selection
+- Users can choose custom output directories.
