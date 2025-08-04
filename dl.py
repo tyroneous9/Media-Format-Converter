@@ -79,9 +79,7 @@ class Application(Tk):
             thread.join()
 
         if failed_links:
-            messagebox.showwarning("Warning", "Some downloads failed:
-" + "
-".join(failed_links))
+            messagebox.showwarning("Warning", "Some downloads failed:\n" + "\n".join(failed_links))
         else:
             messagebox.showinfo("Success", f"{format_type.capitalize()} conversion complete!")
 
